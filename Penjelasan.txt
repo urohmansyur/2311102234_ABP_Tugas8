@@ -1,0 +1,36 @@
+PENJELASAN 
+
+1. Tombol Kamera (ElevatedButton.icon + ImagePicker)
+Tombol pertama memanggil ImagePicker().pickImage(source:
+ImageSource.camera), yang langsung membuka aplikasi kamera bawaan
+perangkat (Camera API). Setelah foto diambil, hasilnya dikembalikan
+sebagai XFile dan disimpan ke variabel state (_imageFile) lalu
+ditampilkan di halaman.
+
+2. Tombol Galeri (ElevatedButton.icon + ImagePicker)
+Tombol kedua memanggil ImagePicker().pickImage(source:
+ImageSource.gallery), yang membuka galeri/penyimpanan foto perangkat
+untuk memilih foto yang sudah ada. Hasilnya juga disimpan ke
+_imageFile dan ditampilkan di halaman yang sama.
+
+3. Preview Foto (Container + Image.file)
+Area kotak di bagian atas halaman menampilkan foto yang sudah
+diambil/dipilih menggunakan widget Image.file(File). Jika belum ada
+foto, ditampilkan ikon placeholder dan teks "Belum ada foto dipilih".
+
+4. Notifikasi Lokal (flutter_local_notifications)
+Setelah proses pengambilan/pemilihan foto berhasil (pickedFile !=
+null), aplikasi memanggil _showNotification() yang menampilkan
+notifikasi lokal di status bar perangkat menggunakan
+FlutterLocalNotificationsPlugin.show(). Isi pesan berbeda untuk kamera
+("Foto Berhasil Diambil") dan galeri ("Foto Berhasil Dipilih").
+
+5. Inisialisasi & Permission Notifikasi (initState)
+Saat halaman pertama kali dibuka, _initNotification() dipanggil untuk
+menyiapkan plugin notifikasi (AndroidInitializationSettings,
+DarwinInitializationSettings) dan meminta izin notifikasi ke pengguna
+(wajib di Android 13+ dan iOS).
+
+CATATAN: Fitur kamera dan notifikasi ini memanfaatkan API perangkat
+keras (hardware API) bawaan sistem operasi, sehingga harus dijalankan
+di Android/iOS (emulator atau device asli), tidak bisa di web/Chrome.
